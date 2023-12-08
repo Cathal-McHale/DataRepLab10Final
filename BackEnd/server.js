@@ -3,15 +3,22 @@ const app = express()
 const port = 4000
 const cors = require('cors');
 
+//server.js
+//add just under import section at the top of server,js
+// Serve the static files from the React app
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
-app.use(cors());
-app.use(function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "*");
-res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-res.header("Access-Control-Allow-Headers",
-"Origin, X-Requested-With, Content-Type, Accept");
-next();
-});
+
+//app.use(cors());
+//app.use(function(req, res, next) {
+//res.header("Access-Control-Allow-Origin", "*");
+//res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//res.header("Access-Control-Allow-Headers",
+//"Origin, X-Requested-With, Content-Type, Accept");
+//next();
+//});
 
 const bodyParser = require("body-parser");
 
@@ -85,6 +92,12 @@ app.get('/api/book/:identifier',async (req,res)=>{
   res.send(book);
 })
 
+//add at the bottom just over app.listen
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/../build/index.html'));
+  });
+  
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
