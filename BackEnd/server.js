@@ -4,7 +4,6 @@ const port = 4000
 const cors = require('cors');
 
 //server.js
-//add just under import section at the top of server,js
 // Serve the static files from the React app
 const path = require('path');
 app.use(express.static(path.join(__dirname, '../build')));
